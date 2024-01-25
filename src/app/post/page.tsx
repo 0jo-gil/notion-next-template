@@ -21,7 +21,7 @@ const PostPage = async () => {
     )
 }
 
-export async function getData() {
+async function getData() {
     return await fetch(`${process.env.API_URL}/api/database`)
         .then((res) => res.json())
         .then((res) => {
