@@ -1,4 +1,3 @@
-'use client';
 
 import MarkdownPreview from "@uiw/react-markdown-preview";
 
