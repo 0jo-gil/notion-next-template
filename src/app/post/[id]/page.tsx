@@ -1,5 +1,4 @@
 import MarkdownViewer from "@/components/markdownViewer";
-import MarkdownPreview from "@uiw/react-markdown-preview";
 
 const PostDetailPage = async ({params, searchParams}: any) => {
 
