@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 
-dotenv.config({path: './env'});
+dotenv.config({path: '../env'});
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -18,12 +18,8 @@ const handle = nextApp.getRequestHandler();
 const postRouter = require('./post-router');
 
 // notion
-const {Client} = require('@notionhq/client');
 //https://github.com/souvikinator/notion-to-md
-const {NotionToMarkdown} = require('notion-to-md');
-const notion = new Client({auth: process.env.NOTION_TOKEN});
 
-const n2m = new NotionToMarkdown({ notionClient: notion });
 
 nextApp
     .prepare()
@@ -37,6 +33,8 @@ nextApp
 
         app.use('/api/post', postRouter);
 
+
+
         /** Next.js Routing */
         app.get('/', (req, res) => {
             const parsedUrl = parse(req.url, true);
@@ -47,7 +45,7 @@ nextApp
        
 
         app.get('*', (req, res) => {
-        return handle(req, res);
+            return handle(req, res);
         });
 
         app.listen(port, () => {

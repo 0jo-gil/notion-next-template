@@ -1,25 +1,29 @@
 'use client';
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const PostPage = () => {
+    const router = useRouter()
     const [postList, setPostList] = useState<any>([]);
-    const result = fetch('/api/post/database')
+
+    useEffect(() => {
+     const result = fetch('/api/post/database')
         .then((res) => res.json())
         .then((res) => {
             if(!res) return;
-            console.log(res)
-            setPostList(res.results || []);
+            setPostList(res || []);
         });
+    }, [])
+  
 
 
     return (
         <div>
             {postList && postList?.map((post: any, index: number) => {
                 return (
-                    <div key={index}>
-                        <h1>{post.properties.title.title[0].plain_text}</h1>
-                        <p>{post.content}</p>
+                    <div key={index} onClick={() => router.push(`/post/${post.id}`)}>
+                        <h1>{post.title}</h1>
                     </div>
                 )
             })}
