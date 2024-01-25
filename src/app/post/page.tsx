@@ -8,19 +8,18 @@ const PostPage = () => {
     const [postList, setPostList] = useState<any>([]);
 
     useEffect(() => {
-     const result = fetch('/api/post/database')
+     const result = fetch('/api/database')
         .then((res) => res.json())
         .then((res) => {
             if(!res) return;
-            setPostList(res || []);
+            setPostList(res?.data || []);
         });
     }, [])
   
 
-
     return (
         <div>
-            {postList && postList?.map((post: any, index: number) => {
+            {postList.length > 0 && postList?.map((post: any, index: number) => {
                 return (
                     <div key={index} onClick={() => router.push(`/post/${post.id}`)}>
                         <h1>{post.title}</h1>
