@@ -1,3 +1,6 @@
+'use client'
+
+
 import MarkdownViewer from "@/components/markdownViewer";
 import axios from 'axios';
 
@@ -5,7 +8,7 @@ const PostDetailPage = async ({ params, searchParams }: any) => {
 
     // const content = await getPostDetailData(params.id);
 
-    const content = await fetch(`${process.env.API_URL}/api/post?id=${params.id}`) //  server에서 처리하기 떄문에 url 필요 o
+    const content = await fetch(`/api/post?id=${params.id}`) //  server에서 처리하기 떄문에 url 필요 o
         .then((res) => res.json())
         .then((res) => {
             if (!res) return;

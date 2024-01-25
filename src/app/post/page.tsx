@@ -1,15 +1,18 @@
+'use client'
+
 import Link from "next/link";
 import axios from 'axios';
 
 const PostPage = async () => {
     // const postList = await getPostData();
 
-    const postList = await fetch(`${process.env.API_URL}/api/database`)
+    const postList = await fetch(`/api/database`)
         .then((res) => res.json())
         .then((res) => {
             if (!res) return;
             return res?.data || [];
         });
+
     return (
         <div>
             {postList.length > 0 && postList?.map((post: any, index: number) => {
