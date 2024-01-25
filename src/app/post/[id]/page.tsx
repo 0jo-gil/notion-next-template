@@ -1,37 +1,25 @@
-'use client';
-
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import MarkdownViewer from "@/components/markdownViewer";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 
-const PostDetailPage = ({params}: {params: {id: string}}) => {
-    const router = useRouter()
-    const [content, setContent] = useState<any>('');
+const PostDetailPage = async ({params, searchParams}: any) => {
 
-    const result = fetch(`/api/post?id=${params.id}`)
-        .then((res) => res.json())
-        .then(async(res) => {
-            setContent(res.data.parent);
-            // const processedContent = await remark()
-            //     .use(html)
-            //     .process(res.parent);
-        });
-
-    useEffect(() => {1
-        console.log(result);
-    }, [])
+    const content = await getData(params.id);
 
 
     return (
         <div>
-            <MarkdownPreview
-                source={content}
-                wrapperElement={{
-                    "data-color-mode": "light",
-                }}
-            />
+            <MarkdownViewer content={content} />
         </div>
     )
+}
+
+export async function getData(id: string) {
+    return await fetch(`${process.env.API_URL}/api/post?id=${id}`) //  server에서 처리하기 떄문에 url 필요 o
+        .then((res) => res.json())
+        .then((res) => {
+            if(!res) return;
+            return  res?.data
+        });
 }
 
 
