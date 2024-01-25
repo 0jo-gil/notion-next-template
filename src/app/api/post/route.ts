@@ -15,6 +15,6 @@ export async function GET(request: NextRequest, response: NextResponse) {
     const mdString = n2m.toMarkdownString(mdblocks);
 
 
-    return NextResponse.json({data: mdString}, {status: 200});
+    return NextResponse.json({ data: mdString }, { status: 200 });
 
 }
