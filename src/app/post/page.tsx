@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const PostPage = async () => {
-    const postList = await getData();
+    const postList = await getPostData();
     return (
         <div>
             {postList.length > 0 && postList?.map((post: any, index: number) => {
@@ -21,7 +21,7 @@ const PostPage = async () => {
     )
 }
 
-async function getData() {
+async function getPostData() {
     return await fetch(`${process.env.API_URL}/api/database`)
         .then((res) => res.json())
         .then((res) => {
