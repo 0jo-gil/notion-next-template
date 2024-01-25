@@ -27,23 +27,23 @@ const PostPage = async () => {
 }
 
 async function getPostData() {
-    return await axios.get(`${process.env.API_URL}/api/post`)
-        .then((res) => res.data)
-        .then((res) => {
-            if(!res) return;
-            return res?.data || [];
-        })
-        .catch((err) => {
-            console.log(err);
-        }
-
-        
-    // return await fetch(`${process.env.API_URL}/api/database`)
-    //     .then((res) => res.json())
+    // return await axios.get(`${process.env.API_URL}/api/post`)
+    //     .then((res) => res.data)
     //     .then((res) => {
     //         if(!res) return;
     //         return res?.data || [];
-    //     });
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     })
+
+
+    return await fetch(`${process.env.API_URL}/api/database`)
+        .then((res) => res.json())
+        .then((res) => {
+            if(!res) return;
+            return res?.data || [];
+        });
 }
 
 export default PostPage;
