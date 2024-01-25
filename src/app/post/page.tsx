@@ -1,33 +1,33 @@
-'use client';
+import Link from "next/link";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-const PostPage = () => {
-    const router = useRouter()
-    const [postList, setPostList] = useState<any>([]);
-
-    useEffect(() => {
-     const result = fetch('/api/database')
-        .then((res) => res.json())
-        .then((res) => {
-            if(!res) return;
-            setPostList(res?.data || []);
-        });
-    }, [])
-  
-
+const PostPage = async () => {
+    const postList = await getData();
     return (
         <div>
             {postList.length > 0 && postList?.map((post: any, index: number) => {
                 return (
-                    <div key={index} onClick={() => router.push(`/post/${post.id}`)}>
+                    <Link key={index} href={{
+                        pathname: `/post/[id]/?page=[page]`,
+                        query: {
+                            page: JSON.stringify(post)
+                        }
+                    }}
+                    as={`/post/${post.id}/?page=${JSON.stringify(post)}`}>
                         <h1>{post.title}</h1>
-                    </div>
+                    </Link>
                 )
             })}
         </div>
     )
+}
+
+export async function getData() {
+    return await fetch('http://localhost:3000/api/database')
+        .then((res) => res.json())
+        .then((res) => {
+            if(!res) return;
+            return res?.data || [];
+        });
 }
 
 export default PostPage;

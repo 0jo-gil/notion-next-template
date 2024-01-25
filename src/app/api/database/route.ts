@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { Client } from "@notionhq/client";
-import { NotionToMarkdown } from "notion-to-md";
-import PostResponseDto from "@/utils/dto/post.response.dto";
+import DataBaseResponseDto from "@/utils/dto/database.response.dto";
 
 export async function GET(request: NextRequest, response: NextResponse) {
     const DATABASE_ID = process.env.NOTION_DATABASE_ID || '';
-
     const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
     
@@ -35,7 +33,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
     });
 
     const toResult = result.results.map((page) => {
-        return PostResponseDto.from(page);
+        return DataBaseResponseDto.from(page);
     })
 
     return NextResponse.json({data: toResult}, {status: 200});

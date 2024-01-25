@@ -8,13 +8,12 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
     const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
-
     const n2m = new NotionToMarkdown({ notionClient: notion });
 
+    // const pageInfo = await notion.pages.retrieve({ page_id: id || '' });
     const mdblocks = await n2m.pageToMarkdown(id || '');
     const mdString = n2m.toMarkdownString(mdblocks);
 
-    // const result = mdString?.parent?.replaceAll('\n', '<br/>');
 
     return NextResponse.json({data: mdString}, {status: 200});
 
