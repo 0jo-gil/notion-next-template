@@ -8,16 +8,16 @@ const PostDetailPage = ({params}: {params: {id: string}}) => {
     const router = useRouter()
     const [content, setContent] = useState<any>('');
 
-    const result = fetch(`/api/post/blocks/${params.id}`)
+    const result = fetch(`/api/post?id=${params.id}`)
         .then((res) => res.json())
         .then(async(res) => {
-            setContent(res.parent);
+            setContent(res.data.parent);
             // const processedContent = await remark()
             //     .use(html)
             //     .process(res.parent);
         });
 
-    useEffect(() => {
+    useEffect(() => {1
         console.log(result);
     }, [])
 
