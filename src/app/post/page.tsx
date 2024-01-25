@@ -2,16 +2,24 @@
 
 import Link from "next/link";
 import axios from 'axios';
+import { useEffect, useState } from "react";
 
-const PostPage = async () => {
+const PostPage = () => {
     // const postList = await getPostData();
+    const [postList, setPostList] = useState([]);
 
-    const postList = await fetch(`/api/database`)
-        .then((res) => res.json())
-        .then((res) => {
-            if (!res) return;
-            return res?.data || [];
-        });
+    useEffect(() => {
+        const postList = fetch(`/api/database`)
+            .then((res) => res.json())
+            .then((res) => {
+                if (!res) return;
+                setPostList(res?.data || [])
+                return res?.data || [];
+            });
+
+    }, [])
+
+
 
     return (
         <div>

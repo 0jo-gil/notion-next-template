@@ -3,17 +3,25 @@
 
 import MarkdownViewer from "@/components/markdownViewer";
 import axios from 'axios';
+import { useEffect, useState } from "react";
 
-const PostDetailPage = async ({ params, searchParams }: any) => {
+const PostDetailPage = ({ params, searchParams }: any) => {
 
     // const content = await getPostDetailData(params.id);
+    const [content, setContent] = useState({
+        parent: ''
+    });
 
-    const content = await fetch(`/api/post?id=${params.id}`) //  server에서 처리하기 떄문에 url 필요 o
-        .then((res) => res.json())
-        .then((res) => {
-            if (!res) return;
-            return res?.data
-        });
+    useEffect(() => {
+
+        const content = fetch(`/api/post?id=${params.id}`) //  server에서 처리하기 떄문에 url 필요 o
+            .then((res) => res.json())
+            .then((res) => {
+                if (!res) return;
+                setContent(res?.data)
+                return res?.data
+            });
+    }, [])
 
     return (
         <MarkdownViewer content={content} />
