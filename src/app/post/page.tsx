@@ -22,7 +22,7 @@ const PostPage = async () => {
 }
 
 export async function getData() {
-    return await fetch('http://localhost:3000/api/database')
+    return await fetch(`${process.env.API_URL}/api/database`)
         .then((res) => res.json())
         .then((res) => {
             if(!res) return;
