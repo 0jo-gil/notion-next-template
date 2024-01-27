@@ -1,67 +1,12 @@
-'use client'
-
-import Link from "next/link";
-import axios from 'axios';
-import { useEffect, useState } from "react";
+import PostList from "@/components/\bpostList/PostList";
 
 const PostPage = () => {
-    // const postList = await getPostData();
-    const [postList, setPostList] = useState([]);
-
-    useEffect(() => {
-        const postList = fetch(`/api/database`)
-            .then((res) => res.json())
-            .then((res) => {
-                if (!res) return;
-                setPostList(res?.data || [])
-                return res?.data || [];
-            });
-
-    }, [])
-
-
 
     return (
-        <div>
-            {postList.length > 0 && postList?.map((post: any, index: number) => {
-                return (
-                    // <Link key={index} href={{
-                    //     pathname: `/post/[id]/?page=[page]`,
-                    //     query: {
-                    //         page: JSON.stringify(post)
-                    //     }
-                    // }}
-                    // as={`/post/${post.id}/?page=${JSON.stringify(post)}`}>
-                    //     <h1>{post.title}</h1>
-                    // </Link>
-
-                    <Link key={index} href={`/post/${post.id}`}>
-                        <h1>{post.title}</h1>
-                    </Link>
-                )
-            })}
-        </div>
+        <PostList />
     )
 }
 
-// async function getPostData() {
-//     // return await axios.get(`${process.env.API_URL}/api/post`)
-//     //     .then((res) => res.data)
-//     //     .then((res) => {
-//     //         if(!res) return;
-//     //         return res?.data || [];
-//     //     })
-//     //     .catch((err) => {
-//     //         console.log(err);
-//     //     })
-
-
-//     return await fetch(`${process.env.API_URL}/api/database`)
-//         .then((res) => res.json())
-//         .then((res) => {
-//             if (!res) return;
-//             return res?.data || [];
-//         });
-// }
-
 export default PostPage;
+
+
