@@ -28,6 +28,7 @@ const useRequestPosts = () => {
             fetchData?.data?.list?.forEach((item: any) => {
                 item.tags.forEach((tag: any) => {
                     setTagList((prev: any) => {
+                        
                         return prev.add(tag)
                     }) 
                 })
@@ -37,8 +38,6 @@ const useRequestPosts = () => {
 
 
     const fetchData = async (cursor?: string, pageSize = 5) => {
-
-
         let requestUrl = '';
 
         requestUrl = cursor ? `/api/database?cursor=${cursor}` : `/api/database`;

@@ -1,9 +1,10 @@
 
 import {tv, type VariantProps} from 'tailwind-variants';
 import Navigation from '../navigation';
+import Link from 'next/link';
 
 const NavStyles = tv({
-    base: 'container flex justify-between items-center',
+    base: 'flex flex-row justify-between items-center',
     variants: {}
 })
 
@@ -13,15 +14,15 @@ const Header = ({
     return (
         <header >
             <div className={NavStyles()}>
-                <div>
-                    LOGO
-                </div>
-                <Navigation>
+                <Link href={'/'}>
+                    <h1 className='text-3xl'>0jo's dev blog</h1>
+                </Link>
+                {/* <Navigation>
                         <Navigation.MenuList>
                             <Navigation.MenuItem href="/">Home</Navigation.MenuItem>
                             <Navigation.MenuItem href="/post">Post</Navigation.MenuItem>
                         </Navigation.MenuList>
-                </Navigation>
+                </Navigation> */}
             </div>
         </header>
     )
