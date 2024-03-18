@@ -12,28 +12,24 @@ const useRequestPosts = () => {
     }, []);
 
     useEffect(() => {
-        getTagList();  
-
+        (async () => {
+            const category = await getTagList();
+            category?.data?.list.forEach((item: any) => {
+                item.tags.forEach((tag: string) => {
+                    setTagList((prev: any) => prev.add(tag))
+                });
+            })
+        })()
     }, [])
 
     const getTagList = async () => {
-        const fetchData = await fetch('/api/database')
+        return await fetch('/api/database')
             .then((res) => res.json())
             .then((data) => {
                 return data
             })
             .catch((error) => console.error('Error:', error));
 
-
-            fetchData?.data?.list?.forEach((item: any) => {
-                item.tags.forEach((tag: any) => {
-                    setTagList((prev: any) => {
-                        
-                        return prev.add(tag)
-                    }) 
-                })
-            })
-        
     }
 
 
@@ -45,21 +41,21 @@ const useRequestPosts = () => {
         const join = cursor ? '&' : '?';
 
         requestUrl = pageSize ? requestUrl + `${join}pageSize=${pageSize}` : requestUrl;
-        
+
 
         await fetch(requestUrl)
-                .then((res) => res.json())
-                .then((data) => {
-                    setPosts(data?.data || [])
+            .then((res) => res.json())
+            .then((data) => {
+                setPosts(data?.data || [])
 
-                    if(data?.data?.list?.length > 0) {
-                        setCursorHistory((prev: string[]) => [
-                            ...prev,
-                            data?.data?.list?.[0].id
-                        ])
-                    }
-                })
-                .catch((error) => console.error('Error:', error));
+                if (data?.data?.list?.length > 0) {
+                    setCursorHistory((prev: string[]) => [
+                        ...prev,
+                        data?.data?.list?.[0].id
+                    ])
+                }
+            })
+            .catch((error) => console.error('Error:', error));
     }
 
     const onNext = (cursor: string) => {
@@ -87,4 +83,4 @@ const useRequestPosts = () => {
     };
 }
 
-export default useRequestPosts;2
+export default useRequestPosts; 2

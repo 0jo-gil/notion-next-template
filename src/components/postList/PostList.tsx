@@ -3,24 +3,34 @@
 import useRequestPosts from "@/hooks/useRequestPosts";
 import Link from "next/link";
 import PostListPagination from "./PostListPagination";
+import Categories from "../cartegories";
+import { PostItem } from "./PostItem";
 
 const PostList: React.FC = () => {
-    const {data, tags, onPrev, onNext} = useRequestPosts();
-
-    console.log(tags)
+    const { data, tags, onPrev, onNext } = useRequestPosts();
 
     return (
         <div>
-            {data?.list?.length > 0 && data?.list?.map((post: any, index: number) => {
-                return (
-                    <Link key={index} href={`/post/${post.id}`}>
-                        <h1>{post.title}</h1>
-                    </Link>
-                )
-            })}
+            <div>
+                <h2>Recent</h2>
+            </div>
 
-            <PostListPagination onPrev={onPrev} onClick={() => onNext(data.nextCursor)} />
-        </div>  
+            <Categories>
+                {[...tags]?.map((tag: any) => (
+                    <Categories.Item key={tag} category={tag} />
+                ))}
+            </Categories>
+
+            <div>
+                {data?.list?.length > 0 && data?.list?.map((post: any, index: number) => {
+                    return (
+                        <PostItem post={post} key={index} />
+                    )
+                })}
+
+                <PostListPagination onPrev={onPrev} onClick={() => onNext(data.nextCursor)} />
+            </div>
+        </div>
     )
 }
 export default PostList;

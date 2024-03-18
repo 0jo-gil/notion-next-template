@@ -1,6 +1,5 @@
 'use client'
 
-
 import MarkdownViewer from "@/components/markdownViewer";
 import axios from 'axios';
 import { useEffect, useState } from "react";
@@ -11,8 +10,7 @@ const PostDetailPage = ({ params, searchParams }: any) => {
     });
 
     useEffect(() => {
-
-        const content = fetch(`/api/post?id=${params.id}`) 
+        const content = fetch(`/api/post?id=${params.id}`)
             .then((res) => res.json())
             .then((res) => {
                 if (!res) return;

@@ -1,38 +1,40 @@
- 
- type DataBaseResponseDtoProps = {
+
+type DataBaseResponseDtoProps = {
     id: string;
     tags: string[];
     title: string;
     description: string;
     status: boolean;
-    createdAt: string;
+    created_time: string;
 }
- 
- class DataBaseResponseDto {
+
+class DataBaseResponseDto {
     id: string;
     tags: string[];
     title: string;
     description: string;
     status: boolean;
-    createdAt: string;
-    
-    constructor ({id, tags, title, description, status, createdAt}: DataBaseResponseDtoProps) {
+    created_time: string;
+
+    constructor({ id, tags, title, description, status, created_time }: DataBaseResponseDtoProps) {
         this.id = id;
         this.tags = tags;
         this.title = title;
         this.description = description;
         this.status = status;
-        this.createdAt = createdAt;
+        this.created_time = created_time;
     }
 
-    static from (page: any) {
+    static from(page: any) {
+
         return new DataBaseResponseDto({
             id: page.id,
             tags: page.properties.tags.multi_select?.map((tag: any) => tag.name),
             title: page.properties.title?.title?.[0]?.plain_text,
             description: page.properties.description?.rich_text?.[0]?.plain_text,
             status: page.properties.status?.checkbox,
-            createdAt: page.properties.createdAt?.date?.start,
+            created_time: page.created_time,
+            // createdAt: page.properties.createdAt?.date?.start,
         });
     }
 }
