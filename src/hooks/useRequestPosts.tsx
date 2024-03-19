@@ -1,49 +1,35 @@
 'use client';
 
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react"
 
 const useRequestPosts = () => {
     const [posts, setPosts] = useState([] as any);
     const [cursorHistory, setCursorHistory] = useState([] as string[]);
     const [tagList, setTagList] = useState(new Set());
+    const searchParams = useSearchParams();
+    
+    const url = new URLSearchParams(searchParams.toString());
 
     useEffect(() => {
         fetchData(undefined, 5);
-    }, []);
-
-    useEffect(() => {
-        (async () => {
-            const category = await getTagList();
-            category?.data?.list.forEach((item: any) => {
-                item.tags.forEach((tag: string) => {
-                    setTagList((prev: any) => prev.add(tag))
-                });
-            })
-        })()
-    }, [])
-
-    const getTagList = async () => {
-        return await fetch('/api/database')
-            .then((res) => res.json())
-            .then((data) => {
-                return data
-            })
-            .catch((error) => console.error('Error:', error));
-
-    }
+    }, [url.get('tag')]);
 
 
     const fetchData = async (cursor?: string, pageSize = 5) => {
         let requestUrl = '';
 
-        requestUrl = cursor ? `/api/database?cursor=${cursor}` : `/api/database`;
+        requestUrl = cursor ? `/api/database?cursor=${cursor}&tag=${url?.get('tag') ?? 'all'}` : `/api/database?tag=${url?.get('tag') ?? 'all'}`;
 
-        const join = cursor ? '&' : '?';
+        // const join = cursor ? '&' : '?';
+        // requestUrl = pageSize ? requestUrl + `${join}pageSize=${pageSize}` : requestUrl;
 
-        requestUrl = pageSize ? requestUrl + `${join}pageSize=${pageSize}` : requestUrl;
 
-
-        await fetch(requestUrl)
+        await fetch(requestUrl, {
+             next: {
+                revalidate: 60
+            }
+        })
             .then((res) => res.json())
             .then((data) => {
                 setPosts(data?.data || [])
@@ -54,6 +40,12 @@ const useRequestPosts = () => {
                         data?.data?.list?.[0].id
                     ])
                 }
+
+                data?.data?.list?.forEach((item: any) => {
+                    item.tags.forEach((tag: string) => {
+                        setTagList((prev: any) => prev.add(tag))
+                    });
+                })
             })
             .catch((error) => console.error('Error:', error));
     }

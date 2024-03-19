@@ -1,4 +1,4 @@
-import PostList from "@/components/\bpostList/PostList";
+import PostList from "@/components/postList/PostList";
 
 const MainPage = () => {
     return (

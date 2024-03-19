@@ -22,7 +22,7 @@ const CategoriesItem = ({ active = false, category, ...props }: Props) => {
     const { getQueryString, setQueryString } = useCategories();
 
     return (
-        <button className={getQueryString('tag') === category ? 'text-red-50' : 'text-black'} onClick={() => setQueryString('tag', category)}>
+        <button className={getQueryString('tag') === category ? 'red' : 'text-black'} onClick={() => setQueryString('tag', category)}>
             {category}
         </button>
     )
