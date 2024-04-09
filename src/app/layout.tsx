@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={'w-1200 m-auto'}>
+      <body className={'max-w-[1200px] m-auto'}>
         <Header />
         {children}
         </body>

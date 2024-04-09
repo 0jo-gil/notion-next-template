@@ -1,0 +1,1 @@
+export { SkeletonPostItem } from './skeleton-post-item';

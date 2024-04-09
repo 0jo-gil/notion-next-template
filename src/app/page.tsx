@@ -4,10 +4,8 @@ import MainPage from './main/page'
 
 export default function Home() {
   return (
-    <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <MainPage/>
-      </main>
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <MainPage/>
+    </main>
   )
 }

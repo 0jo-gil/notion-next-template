@@ -1,18 +1,20 @@
 'use client';
 
 import useRequestPosts from "@/hooks/useRequestPosts";
-import Link from "next/link";
 import PostListPagination from "./PostListPagination";
 import Categories from "../cartegories";
 import { PostItem } from "./PostItem";
+import { RecentPost } from "../recent-post/recent-post";
+import { SkeletonPostItem } from "../skeleton";
 
 const PostList: React.FC = () => {
     const { data, tags, onPrev, onNext } = useRequestPosts();
+    console.log(data?.list?.length)
 
     return (
-        <div>
+        <div className="min-w-full mb-10">
             <div>
-                <h2>Recent</h2>
+                <RecentPost postList={data?.list?.slice(0,2) ?? []} />
             </div>
 
             <Categories>
@@ -22,11 +24,15 @@ const PostList: React.FC = () => {
             </Categories>
 
             <div>
-                {data?.list?.length > 0 && data?.list?.map((post: any, index: number) => {
+                {data?.list?.length > 0 ? data?.list?.map((post: any, index: number) => {
                     return (
                         <PostItem post={post} key={index} />
                     )
-                })}
+                }) : (
+                    Array(5).fill(undefined).map((_, index) => (
+                        <SkeletonPostItem key={index} />
+                    ))
+                )}
 
                 <PostListPagination onPrev={onPrev} onClick={() => onNext(data.nextCursor)} />
             </div>

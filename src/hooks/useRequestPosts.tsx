@@ -19,7 +19,7 @@ const useRequestPosts = () => {
     const fetchData = async (cursor?: string, pageSize = 5) => {
         let requestUrl = '';
 
-        requestUrl = cursor ? `/api/database?cursor=${cursor}&tag=${url?.get('tag') ?? 'all'}` : `/api/database?tag=${url?.get('tag') ?? 'all'}`;
+        requestUrl = cursor ? `/api/database?cursor=${cursor}&tag=${url?.get('tag') ?? 'All'}` : `/api/database?tag=${url?.get('tag') ?? 'All'}`;
 
         // const join = cursor ? '&' : '?';
         // requestUrl = pageSize ? requestUrl + `${join}pageSize=${pageSize}` : requestUrl;
