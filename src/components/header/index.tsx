@@ -1,18 +1,14 @@
-
-import {tv, type VariantProps} from 'tailwind-variants';
-import Navigation from '../navigation';
+import {tv} from 'tailwind-variants';
 import Link from 'next/link';
 
 const NavStyles = tv({
-    base: 'flex flex-row justify-between items-center',
+    base: 'flex flex-row justify-between items-center py-5',
     variants: {}
 })
 
-const Header = ({
-
-}) => {
+const Header = ({}) => {
     return (
-        <header >
+        <header>
             <div className={NavStyles()}>
                 <Link href={'/'}>
                     <h1 className='text-3xl'>0jo's dev blog</h1>

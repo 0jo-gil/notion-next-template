@@ -9,7 +9,6 @@ import { SkeletonPostItem } from "../skeleton";
 
 const PostList: React.FC = () => {
     const { data, tags, onPrev, onNext } = useRequestPosts();
-    console.log(data?.list?.length)
 
     return (
         <div className="min-w-full mb-10">

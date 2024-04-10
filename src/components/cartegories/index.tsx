@@ -1,11 +1,11 @@
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 
-const Categories = ({ children }: { children: React.ReactNode }) => {
-    const { getQueryString } = useCategories();
+const Categories = ({children}: { children: React.ReactNode }) => {
+    const {getQueryString} = useCategories();
 
     return (
         <div className="flex gap-x-4 mt-16 py-5 border-b border-solid border-gray-400">
-            <CategoriesItem category="All" active={getQueryString('tag') === 'All' ?? true} />
+            <CategoriesItem category="All" active={getQueryString('tag') === 'All' ?? true}/>
             {children}
         </div>
     )
@@ -18,11 +18,13 @@ type Props = {
     onClick?: () => void;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
-const CategoriesItem = ({ active = false, category, ...props }: Props) => {
-    const { getQueryString, setQueryString } = useCategories();
+const CategoriesItem = ({active = false, category, ...props}: Props) => {
+    const {getQueryString, setQueryString} = useCategories();
 
     return (
-        <button className={getQueryString('tag') === category ? 'red' : 'text-black'} onClick={() => setQueryString('tag', category)}>
+        <button className={
+            getQueryString('tag') === category ? 'category-item active' : 'category-item'}
+                onClick={() => setQueryString('tag', category)}>
             {category}
         </button>
     )
@@ -49,7 +51,5 @@ const useCategories = () => {
     }
 
 
-
-
-    return { getQueryString, setQueryString }
+    return {getQueryString, setQueryString}
 }

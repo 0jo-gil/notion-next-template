@@ -1,10 +1,9 @@
 'use client'
 
 import MarkdownViewer from "@/components/markdownViewer";
-import axios from 'axios';
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
-const PostDetailPage = ({ params, searchParams }: any) => {
+const PostDetailPage = ({params, searchParams}: any) => {
     const [content, setContent] = useState({
         parent: ''
     });
@@ -20,10 +19,11 @@ const PostDetailPage = ({ params, searchParams }: any) => {
     }, [])
 
     return (
-        <MarkdownViewer content={content} />
+        <div className={'py-10'}>
+            <MarkdownViewer content={content}/>
+        </div>
     )
 }
-
 
 
 export default PostDetailPage;
