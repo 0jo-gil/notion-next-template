@@ -11,7 +11,7 @@ const Header = ({}) => {
         <header>
             <div className={NavStyles()}>
                 <Link href={'/'}>
-                    <h1 className='text-3xl'>0jo's dev blog</h1>
+                    <h1 className='text-3xl'>0jo dev blog</h1>
                 </Link>
                 {/* <Navigation>
                         <Navigation.MenuList>
