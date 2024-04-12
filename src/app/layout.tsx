@@ -2,6 +2,8 @@ import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import '@/styles/globals.css'
 import Header from '@/components/header'
+import Script from 'next/script'
+import { GA_TRACKING_ID } from '@/lib/gtag'
 
 const inter = Inter({subsets: ['latin']})
 
@@ -17,6 +19,22 @@ export default function RootLayout({
 }) {
     return (
         <html lang="ko">
+            {/* <head>
+        <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+            strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', ${GA_TRACKING_ID}, {
+                page_path: window.location.pathname,
+            });
+            `}
+                </Script>
+                </head> */}
         <body className={'max-w-[1200px] m-auto bg-[#111B2AFF]'}>
         <Header/>
         {children}
@@ -24,3 +42,4 @@ export default function RootLayout({
         </html>
     )
 }
+
